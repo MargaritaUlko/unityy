@@ -1,0 +1,72 @@
+.vs/
+.vscode/
+*.vsidx
+# Unity
+# Unity стандартные игноры
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Pp]ackages/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+/[Aa]ssets/AssetStoreTools*
+/.vs/
+/*.csproj
+/*.unityproj
+/*.sln
+/*.suo
+/*.user
+/*.userprefs
+/[Uu]serSettings/
+
+# Дополнительно для вашего случая
+/ProjectSettings/TimelineSettings.asset
+/ProjectSettings/UnityConnectSettings.asset
+/ProjectSettings/VersionControlSettings.asset
+/UserSettings/
+/obj/
+
+# Visual Studio
+.vs/
+*.sln
+*.user
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Unity Asset Store
+Assets/AssetStoreTools*
+
+# Large files
+*.dll
+*.exe
+*.so
+*.dylib
+*.apk
+*.aab
+*.pdb
+*.mdb
+*.app
+*.ipa
+*.appx
+*.appxbundle
+*.xcodeproj
+*.xcworkspace
+
+# Ignore specific packages
+Library/PackageCache/
