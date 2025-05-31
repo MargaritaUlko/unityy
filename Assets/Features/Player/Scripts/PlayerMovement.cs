@@ -13,12 +13,12 @@ public class PlayerMovement : MonoBehaviour
     [Space(5)]
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 60.0f;
+    [SerializeField] private float jumpForce = 3.0f;
     [Space(5)]
 
     [Header("Double Jump")]
     [SerializeField] private bool doubleJumpEnabled = false;
-    [SerializeField] private float doubleJumpForce = 30.0f;
+    [SerializeField] private float doubleJumpForce = 3.0f;
     [Space(5)]
 
     [Header("Dash")]

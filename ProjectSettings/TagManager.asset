@@ -3,12 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Level2
-  - Wall
-  - Projectile
-  - GroundCheck
-  - Enemy
+  tags: []
   layers:
   - Default
   - TransparentFX

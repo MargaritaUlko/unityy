@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyRat : MonoBehaviour
+public class EnemyPatrol : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
