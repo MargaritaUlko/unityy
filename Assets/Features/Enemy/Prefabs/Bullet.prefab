@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6578989155434837513}
   - component: {fileID: 3048584439096405934}
   - component: {fileID: 143483044563896409}
-  - component: {fileID: 1002596465874406087}
+  - component: {fileID: 8818054267521245690}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +149,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1002596465874406087
+--- !u!114 &8818054267521245690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,4 +162,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  lifeTime: 3
+  lifeTime: 40
+  damage: 1
+  bounceForce: 3
+  ignoreTags:
+  - Projectile
+  - Enemy
+  bounceLayers:
+    serializedVersion: 2
+    m_Bits: 128

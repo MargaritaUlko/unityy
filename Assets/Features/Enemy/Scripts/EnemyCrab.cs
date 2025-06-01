@@ -41,15 +41,15 @@ public class EnemyCrab : MonoBehaviour
         if (playerDead) return;
 
         // Если игрок уничтожен, пытаемся найти снова
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
-            if (player == null)
-            {
-                playerDead = true;
-                return;
-            }
-        }
+        //if (player == null)
+        //{
+        //    player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        //    if (player == null)
+        //    {
+        //        playerDead = true;
+        //        return;
+        //    }
+        //}
 
         // Проверяем дистанцию
         if (Vector2.Distance(transform.position, player.position) <= detectionRange)
@@ -66,7 +66,7 @@ public class EnemyCrab : MonoBehaviour
     private void TryShoot()
     {
         // Проверяем все необходимые ссылки
-        if (player == null || projectilePrefab == null || firePoint == null)
+        if (player == null | projectilePrefab == null | firePoint == null)
         {
             Debug.LogWarning("Cannot shoot: missing references. Player: " + player + ", Projectile Prefab: " + projectilePrefab + ", Fire Point: " + firePoint);
             return;
@@ -78,7 +78,7 @@ public class EnemyCrab : MonoBehaviour
 
         if (proj == null)
         {
-            Debug.LogError("Projectile component missing!", projectile);
+            //Debug.LogError("Projectile component missing!", projectile);
             Destroy(projectile);
             return;
         }

@@ -5,10 +5,13 @@ public class Projectile : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float speed = 5f;
     [SerializeField] private float lifeTime = 3f;
-    [SerializeField] private int damage = 10;
-    [SerializeField] private string[] ignoreTags = { "Projectile", "Enemy" }; // Теги для игнорирования
+    [SerializeField] private int damage = 1;
+    [SerializeField] private float bounceForce = 3f; // Сила отскока
+    [SerializeField] private string[] ignoreTags = { "Projectile", "Enemy" };
+    [SerializeField] private LayerMask bounceLayers; // Слои, от которых будет отскакивать
 
     private Rigidbody2D rb;
+    private Vector2 lastVelocity;
 
     private void Awake()
     {
@@ -25,6 +28,11 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
+    private void Update()
+    {
+        lastVelocity = rb.velocity; // Запоминаем скорость для расчёта отскока
+    }
+
     public void Launch(Vector2 direction)
     {
         if (rb != null)
@@ -33,35 +41,48 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Пропускаем ненужные столкновения
-        if (collision.CompareTag("Untagged") || collision.CompareTag("Projectile"))
-            return;
-
-        Debug.Log($"Projectile hit: {collision.gameObject.name} (Tag: {collision.tag})");
-
-        // Обрабатываем только столкновение с игроком
-        if (collision.CompareTag("Player"))
+        // Проверяем, нужно ли отскочить от этого объекта
+        if (ShouldBounce(collision.collider))
         {
-            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damage); // Используем playerHealth вместо health
-                Debug.Log($"Dealt {damage} damage to player");
-            }
-            else
-            {
-                Debug.LogError("PlayerHealth component not found on player!");
-            }
+            Bounce(collision);
+            return;
         }
 
-        Destroy(gameObject);
+        // Остальная логика (игрок, игнорируемые теги)
+        foreach (string tag in ignoreTags)
+        {
+            if (collision.collider.CompareTag(tag)) return;
+        }
+
+        if (collision.collider.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+        }
+    }
+
+    private bool ShouldBounce(Collider2D collision)
+    {
+        // Проверяем, есть ли объект в маске bounceLayers
+        return bounceLayers == (bounceLayers | (1 << collision.gameObject.layer));
+    }
+
+    private void Bounce(Collision2D collision)
+    {
+        // Рассчитываем нормаль поверхности
+        Vector2 normal = collision.contacts[0].normal;
+
+        // Рассчитываем направление отскока
+        Vector2 reflectDirection = Vector2.Reflect(lastVelocity.normalized, normal);
+
+        // Применяем новую скорость с добавленной силой отскока
+        rb.velocity = reflectDirection * speed * bounceForce;
+
+        Debug.Log($"Bounced! New velocity: {rb.velocity}");
     }
 }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    // Тут можно обработать столкновение с игроком или стеной
-    //    Destroy(gameObject);
-    //}
-
