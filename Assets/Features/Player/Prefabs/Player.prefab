@@ -498,12 +498,6 @@ MonoBehaviour:
   dashForce: 15
   dashDuration: 0.2
   dashCooldown: 1
-  wallSlideEnabled: 0
-  wallSlideForce: 2
-  wallJumpEnabled: 0
-  wallJumpingPower: {x: 4, y: 4}
-  wallJumpingDuration: 0.4
-  wallJumpingTime: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 0
@@ -521,16 +515,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5066448094212922569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0831fc7822ef4cb4490bcf95cd36670b, type: 3}
+  m_Script: {fileID: 11500000, guid: 74a190c0f74f603478536a07ab538736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartsUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  baseMaxHealth: 5
+  groundCheck: {fileID: 1547384567350830576}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &6317064864519202190
 GameObject:
   m_ObjectHideFlags: 0

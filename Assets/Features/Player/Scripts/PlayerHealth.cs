@@ -16,7 +16,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount = 1)
     {
-        Debug.Log($"Taking damage: {amount}");
         currentHealth = Mathf.Max(currentHealth - amount, 0);
         UpdateHeartsUI();
 
