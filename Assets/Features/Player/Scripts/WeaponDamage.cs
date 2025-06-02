@@ -1,49 +1,61 @@
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class WeaponAttack : MonoBehaviour
 {
     public string enemyTag = "Enemy";
     public Animator animator;
-    public float attackDuration = 0.5f;
+    public float attackCooldown = 0.5f;
 
-    private bool isAttacking = false;
+    private BoxCollider2D weaponCollider;
+    private bool canAttack = true;
 
-    void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !isAttacking)
+        weaponCollider = GetComponent<BoxCollider2D>();
+        weaponCollider.isTrigger = true;
+        weaponCollider.enabled = false; // Изначально выключен
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z) && canAttack)
         {
-            StartCoroutine(Attack());
+            Attack();
         }
     }
 
-    private System.Collections.IEnumerator Attack()
+    private void Attack()
     {
-        isAttacking = true;
-
-        // Запуск анимации атаки
         if (animator != null)
         {
             animator.SetTrigger("Attack");
         }
 
-        // Включаем коллайдер на короткое время
-        Collider weaponCollider = GetComponent<Collider>();
-        if (weaponCollider != null)
-            weaponCollider.enabled = true;
-
-        yield return new WaitForSeconds(attackDuration);
-
-        if (weaponCollider != null)
-            weaponCollider.enabled = false;
-
-        isAttacking = false;
+        canAttack = false;
+        Invoke(nameof(ResetAttack), attackCooldown);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void ResetAttack()
     {
-        if (isAttacking && other.CompareTag(enemyTag))
+        canAttack = true;
+    }
+
+    public void EnableHitbox()
+    {
+        weaponCollider.enabled = true;
+    }
+
+    public void DisableHitbox()
+    {
+        weaponCollider.enabled = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (weaponCollider.enabled && other.CompareTag(enemyTag))
         {
-            Destroy(other.gameObject); // Убить врага
+            Destroy(other.gameObject); // Уничтожить врага
         }
     }
 }
